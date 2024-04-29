@@ -1,0 +1,3 @@
+ - Projeto Recibo No Clique
+ - Finalidade: Ajudar pessoas a enviarem recibos de maneira fácil e sem precisar de cadastro prévio. Apenas com um clique ela poderá enviar um PDF com o recibo de qualquer venda para seu cliente!
+ - Tecnologias: React Native, TypeScript, Expo, React Native Paper.
