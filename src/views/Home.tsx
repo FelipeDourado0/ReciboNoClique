@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 import { ReciboModel } from "../models/ReciboForm";
 
 const Home = () => {
@@ -76,7 +76,8 @@ const Home = () => {
             <Text style={styles.subtitulo}>Preencha o formulário abaixo:</Text>
             <TextInput
               mode="outlined"
-              outlineColor="#ffffff"
+              label="Nome do cliente"
+              outlineColor="#FFD600"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -84,12 +85,12 @@ const Home = () => {
                 setDados((prev) => ({ ...prev, nomePagador: e }))
               }
               value={dados?.nomePagador}
-              placeholder="Nome do cliente"
               keyboardType="default"
             />
             <TextInput
               mode="outlined"
-              outlineColor="#ffffff"
+              label="CPF/CNPJ do cliente"
+              outlineColor="#FFD600"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -97,12 +98,12 @@ const Home = () => {
                 setDados((prev) => ({ ...prev, cpfCnpjPagador: e }))
               }
               value={dados?.cpfCnpjPagador}
-              placeholder="CPF/CNPJ do cliente"
               keyboardType="decimal-pad"
             />
             <TextInput
               mode="outlined"
-              outlineColor="#ffffff"
+              label="Nome do beneficiário"
+              outlineColor="#FFD600"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -110,12 +111,12 @@ const Home = () => {
                 setDados((prev) => ({ ...prev, nomeBeneficiario: e }))
               }
               value={dados?.nomeBeneficiario}
-              placeholder="Nome do beneficiário"
               keyboardType="default"
             />
             <TextInput
               mode="outlined"
-              outlineColor="#ffffff"
+              label="CPF/CNPJ do beneficiário"
+              outlineColor="#FFD600"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -123,7 +124,6 @@ const Home = () => {
                 setDados((prev) => ({ ...prev, cpfCnpjBeneficiario: e }))
               }
               value={dados?.cpfCnpjBeneficiario}
-              placeholder="CPF/CNPJ do beneficiário"
               keyboardType="decimal-pad"
             />
             {showPicker && (
@@ -167,7 +167,8 @@ const Home = () => {
             <Pressable onPress={toggleDatePicker}>
               <TextInput
                 mode="outlined"
-                outlineColor="#ffffff"
+                label="Data do pagamento"
+                outlineColor="#FFD600"
                 activeOutlineColor="#FFD600"
                 placeholderTextColor="#a3a3a3"
                 style={styles.input}
@@ -176,25 +177,41 @@ const Home = () => {
                     ? ""
                     : formatDate(dados?.dataPagamento)
                 }
-                placeholder="Data do pagamento"
                 keyboardType="default"
                 editable={false}
                 onPressIn={toggleDatePicker}
               />
             </Pressable>
+
             <TextInput
               mode="outlined"
-              outlineColor="#ffffff"
+              label="Valor"
+              outlineColor="#FFD600"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
+              style={styles.input}
+              onChangeText={(e) => setDados((prev) => ({ ...prev, valor: e }))}
+              value={dados?.valor}
+              keyboardType="decimal-pad"
+            />
+
+            <TextInput
+              mode="outlined"
+              outlineColor="#FFD600"
+              activeOutlineColor="#FFD600"
+              placeholderTextColor="#a3a3a3"
+              label="Descrição"
               multiline={true}
               numberOfLines={3}
               style={styles.inputDescricao}
               onChangeText={(e) => setDados((prev) => ({ ...prev, motivo: e }))}
               value={dados?.motivo}
-              placeholder="Descrição"
               keyboardType="ascii-capable"
             />
+
+            <Button mode="contained" style={styles.buttonGerar}>
+              GERAR RECIBO
+            </Button>
           </View>
         </View>
       </ScrollView>
@@ -206,7 +223,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#e9e9e9",
+    backgroundColor: "#ffffff",
   },
   scrollView: {
     width: Dimensions.get("window").width,
@@ -230,6 +247,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 32,
     color: "#FFD600",
+    fontWeight: "500",
+    marginTop: 15,
     marginBottom: 15,
   },
   subtitulo: {
@@ -239,11 +258,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#000000",
     marginBottom: 15,
+    fontWeight: "400",
   },
   input: {
     width: "100%",
     height: 45,
     marginBottom: 15,
+    backgroundColor: "#ffffff",
   },
   datePicker: {
     height: 120,
@@ -254,6 +275,7 @@ const styles = StyleSheet.create({
     height: 60,
     marginBottom: 15,
     paddingBottom: 12,
+    backgroundColor: "#ffffff",
   },
   pickerButton: {
     paddingHorizontal: 20,
@@ -269,6 +291,17 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 14,
     fontWeight: "500",
+    color: "#fff",
+  },
+  buttonGerar: {
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 15,
+    backgroundColor: "#FFD600",
+    fontSize: 14,
+    fontWeight: "800",
     color: "#fff",
   },
 });
