@@ -1,35 +1,72 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import React from "react";
 import {
   Dimensions,
+  Platform,
   Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import { ReciboModel } from "../models/ReciboForm";
 
 const Home = () => {
+  //state geral do form
   const [dados, setDados] = React.useState<ReciboModel>({} as ReciboModel);
-  const [data, setData] = React.useState<Date>(new Date());
+  //state do showPicker
   const [showPicker, setShowPicker] = React.useState<boolean>(false);
 
   const toggleDatePicker = () => {
     setShowPicker(!showPicker);
   };
 
-  const onChange = ( event: Event , dataSelecionada: Date) => {
+  const onChangePicker = (
+    event: DateTimePickerEvent,
+    dataSelecionada?: Date
+  ) => {
     if (event.type == "set") {
-      const dataAtual = dataSelecionada;
-      setData(dataAtual);
+      if (Platform.OS === "android") {
+        const dadosNovos = dados;
+        if (dataSelecionada == undefined) {
+          dataSelecionada = new Date();
+        }
+        dadosNovos.dataPagamento = dataSelecionada;
+        setDados(dadosNovos);
+
+        toggleDatePicker();
+      }
     } else {
       toggleDatePicker();
     }
   };
+
+  const confirmIOSDate = () => {
+    toggleDatePicker();
+  };
+
+  const formatDate = (date: Date) => {
+    const day =
+      date.getDate() <= 10
+        ? "0" + date.getDate().toString()
+        : date.getDate().toString();
+
+    const month =
+      date.getMonth() + 1 <= 10
+        ? "0" + (date.getMonth() + 1).toString()
+        : date.getMonth() + 1;
+
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -91,13 +128,42 @@ const Home = () => {
             />
             {showPicker && (
               <DateTimePicker
-                style={styles.input}
+                style={styles.datePicker}
                 mode="date"
                 display="spinner"
-                value={data}
-                onChange={(e) => onChange}
+                value={
+                  dados?.dataPagamento == undefined
+                    ? new Date()
+                    : dados?.dataPagamento
+                }
+                onChange={onChangePicker}
               />
             )}
+            {showPicker && Platform.OS === "ios" && (
+              <View
+                style={{ flexDirection: "row", justifyContent: "space-around" }}
+              >
+                <TouchableOpacity
+                  style={[
+                    styles.pickerButton,
+                    styles.button,
+                    { backgroundColor: "#11182711" },
+                  ]}
+                  onPress={toggleDatePicker}
+                >
+                  <Text style={[styles.buttonText, { color: "#075985" }]}>
+                    Cancel
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.pickerButton, styles.button]}
+                  onPress={confirmIOSDate}
+                >
+                  <Text style={[styles.buttonText]}>Confirm</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+
             <Pressable onPress={toggleDatePicker}>
               <TextInput
                 mode="outlined"
@@ -108,11 +174,12 @@ const Home = () => {
                 value={
                   dados?.dataPagamento == undefined
                     ? ""
-                    : dados?.dataPagamento.toDateString()
+                    : formatDate(dados?.dataPagamento)
                 }
                 placeholder="Data do pagamento"
                 keyboardType="default"
                 editable={false}
+                onPressIn={toggleDatePicker}
               />
             </Pressable>
             <TextInput
@@ -178,11 +245,31 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 15,
   },
+  datePicker: {
+    height: 120,
+    margin: -10,
+  },
   inputDescricao: {
     width: "100%",
     height: 60,
     marginBottom: 15,
     paddingBottom: 12,
+  },
+  pickerButton: {
+    paddingHorizontal: 20,
+  },
+  button: {
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 15,
+    backgroundColor: "#075985",
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#fff",
   },
 });
 
