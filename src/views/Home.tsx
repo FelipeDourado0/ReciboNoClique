@@ -77,7 +77,7 @@ const Home = () => {
             <TextInput
               mode="outlined"
               label="Nome do cliente"
-              outlineColor="#FFD600"
+              outlineColor="#000000"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -90,7 +90,7 @@ const Home = () => {
             <TextInput
               mode="outlined"
               label="CPF/CNPJ do cliente"
-              outlineColor="#FFD600"
+              outlineColor="#000000"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -103,7 +103,7 @@ const Home = () => {
             <TextInput
               mode="outlined"
               label="Nome do beneficiário"
-              outlineColor="#FFD600"
+              outlineColor="#000000"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -116,7 +116,7 @@ const Home = () => {
             <TextInput
               mode="outlined"
               label="CPF/CNPJ do beneficiário"
-              outlineColor="#FFD600"
+              outlineColor="#000000"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -168,7 +168,7 @@ const Home = () => {
               <TextInput
                 mode="outlined"
                 label="Data do pagamento"
-                outlineColor="#FFD600"
+                outlineColor="#000000"
                 activeOutlineColor="#FFD600"
                 placeholderTextColor="#a3a3a3"
                 style={styles.input}
@@ -186,7 +186,7 @@ const Home = () => {
             <TextInput
               mode="outlined"
               label="Valor"
-              outlineColor="#FFD600"
+              outlineColor="#000000"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               style={styles.input}
@@ -197,7 +197,7 @@ const Home = () => {
 
             <TextInput
               mode="outlined"
-              outlineColor="#FFD600"
+              outlineColor="#000000"
               activeOutlineColor="#FFD600"
               placeholderTextColor="#a3a3a3"
               label="Descrição"
